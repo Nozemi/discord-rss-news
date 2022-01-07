@@ -1,0 +1,7 @@
+feedSourceUrl: https://itavisen.no/rss
+fetchInterval: 10 # minutes
+discordWebhookConfig:
+  id: 928895349978976316
+  token: BoX20CqSecY9mSA7dRKdV-grBDC-iLD59DaHK2JifGB0X7yYxd6GrGF4s2RBngdY_LxE
+defaultThumbnailUrl: https://itavisen.no/wp-content/uploads/2021/03/cropped-11059778_10153605555841015_197702695720629027_o-1-32x32.jpg
+feedType: RSS

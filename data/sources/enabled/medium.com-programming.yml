@@ -1,0 +1,7 @@
+feedSourceUrl: https://medium.com/feed/tag/programming
+fetchInterval: 10 #minutes
+discordWebhookConfig:
+  id: 928900201261977650
+  token: rmYz5Js0FYUX7GWcNFVMfoFEtz-ZRRPvaBSF6RdjbWFm4cfLjOfiNv1g_1B9SS8arsNZ
+defaultThumbnailUrl: https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Medium_logo_Monogram.svg/1200px-Medium_logo_Monogram.svg.png
+feedType: RSS

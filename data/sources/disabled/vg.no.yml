@@ -1,0 +1,7 @@
+feedSourceUrl: https://www.vg.no/rss/feed
+fetchInterval: 10 #minutes
+discordWebhookConfig:
+  id: 928895212359680051
+  token: TBg1JoXUmPGCAUyC3i1uR5mn0APVR4wy7r2tA0E-vHpcGIeqkR3VRiG_WbyoC3HTQ_x4
+defaultThumbnailUrl: https://vgc.no/gfx/vg-rss.png
+feedType: RSS

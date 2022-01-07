@@ -1,45 +1,45 @@
 package io.nozemi.discordnews
 
-import com.fasterxml.jackson.databind.DeserializationFeature
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.databind.SerializationFeature
-import com.fasterxml.jackson.dataformat.xml.XmlFactory
-import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import com.github.michaelbull.logging.InlineLogger
-import com.github.michaelbull.result.Err
-import com.github.michaelbull.result.Ok
-import com.github.michaelbull.result.get
-import com.github.michaelbull.result.toResultOr
-import io.nozemi.discordnews.models.NewsArticleEmbedModel
-import io.nozemi.discordnews.services.NewsFetchError
-import io.nozemi.discordnews.services.ServiceLoader
+import io.nozemi.discordnews.services.ApplicationService
+import io.nozemi.discordnews.services.ServiceConfigLoader
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.newSingleThreadContext
+import kotlinx.coroutines.runBlocking
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.stereotype.Service
 
 private val logger = InlineLogger()
 
+class MonitoringThread(val execute: () -> Unit) : Thread() {
+
+    override fun run() {
+        while (true) {
+            execute()
+        }
+    }
+}
+
 @Service
 class ServiceManager(
-    val serviceLoader: ServiceLoader
+    val serviceLoader: ServiceConfigLoader,
+    val services: List<ApplicationService>
 ) : InitializingBean {
 
+    @OptIn(DelicateCoroutinesApi::class)
     private fun start() {
-        serviceLoader.services.forEach { service ->
-            when (val result = service.fetchNews()) {
-                is Ok -> push(result.component1())
-                is Err -> logger.error { result.component2().message }
-                else -> error("Something has gone wrong...")
+        runBlocking {
+            services.forEach {
+                launch(newSingleThreadContext(it.javaClass.name)) {
+                    it.start(this)
+                }
             }
         }
     }
 
-    private fun push(articles: List<NewsArticleEmbedModel>) {
-        articles.forEach { logger.info { it } }
-    }
-
     override fun afterPropertiesSet() {
-        serviceLoader.readNewsSources()
-
+        serviceLoader.loadSourceConfigurations()
         this.start()
     }
 }
