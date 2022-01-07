@@ -1,0 +1,13 @@
+feedSourceUrl: https://www.vg.no/rss/feed
+fetchInterval: 1
+discordWebHookUrl: https://discord.com/api/webhooks/928564379304198175/8_nT2m2LOi3WG34dCWn0z1QIF4e5fHDt7Xkj4Efo8behWlnfQHVK2KU7guKI4kbO5Ooy
+defaultThumbnailUrl: https://1.vgc.no/vgnett-prod/img/vgLogoSquare.png
+feedType: RSS
+valueMap:
+  articles: channel
+  article: item
+  published: pubDate
+  ingress: description
+  thumbnailUrl: img
+  url: link
+  title: title

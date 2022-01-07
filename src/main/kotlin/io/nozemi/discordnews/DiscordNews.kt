@@ -1,11 +1,14 @@
 package io.nozemi.discordnews
 
+import org.springframework.boot.WebApplicationType
 import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.runApplication
+import org.springframework.boot.builder.SpringApplicationBuilder
 
 @SpringBootApplication
 class DiscordNews
 
 fun main(args: Array<String>) {
-    runApplication<DiscordNews>(*args)
+    SpringApplicationBuilder(DiscordNews::class.java)
+        .web(WebApplicationType.NONE)
+        .run(*args)
 }
